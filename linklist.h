@@ -3,19 +3,19 @@ using namespace std;
 class linklist
 {
   public:
-  linklist *start=NULL;
-  void insert(int val)
+  
+  void insert(int val,linklist **start)
   {
     linklist *ptr=(linklist *)malloc(sizeof (linklist *));
     ptr->value=val;
     ptr->next=NULL;
-    if(start == NULL)
+    if(*start == NULL)
     {
-      start=ptr;
+      *start=ptr;
     }
     else
     {
-        linklist *curr=start;
+        linklist *curr=*start;
         while(curr->next!=NULL)
         {
           curr=curr->next;
@@ -24,40 +24,61 @@ class linklist
     }
   }
 
-  void seacrh(int val)
+  linklist* seacrh(int val,linklist *start)
   {
-    linklist *curr=start;
-    int temp=0;
-    if(start->value==val)
+    linklist *temp=NULL;
+  if(start==NULL)
+  {
+  }
+  else
+ {
+   int a=0;
+  linklist *curr = start;
+  while(curr->value!=val)
+  {
+    if(curr->next==NULL)
     {
-      cout<<"Found"<<endl;
-      temp++;
+      a++;
+      break;
+    }
+    curr=curr->next;
+  }
+     if(curr->next!=NULL || a==0)
+  {
+    temp=curr;
+  }
+ }
+ return temp;
+  }
+
+  linklist* retprev(linklist *temp,linklist *start)
+  {
+    int a=0;
+     while(start->next!=temp)
+    {
+      start=start->next;
+      if(start==NULL)
+      {
+        a++;
+        break;
+      }
+    }
+    if(a==0)
+    {
+    return start;
     }
     else
     {
-      while(curr->next!=NULL)
-      {
-        curr=curr->next;
-        if(curr->value==val)
-        {
-          cout<<"Found"<<endl;
-          temp++;
-          break;
-        }
-      }
-    }
-    if(temp==0)
-    {
-      cout<<"Not Found"<<endl;
-    }
+      return NULL;
+    } 
   }
 
-  void del(int val)
+  void del(int val,linklist **start)
   {
-    linklist *curr=start;
-    if(start->value==val)
+    linklist *curr=*start;
+    if((*start)->value==val)
     {
-      start=start->next;
+      *start=(*start)->next;
       curr=NULL;
        free(curr);
     }
@@ -65,7 +86,7 @@ class linklist
     {
       int temp=0;
       curr=curr->next;
-      linklist *prev=start;
+      linklist *prev=*start;
       while(curr->value!= val)
       {
        curr=curr->next;
@@ -89,7 +110,33 @@ class linklist
     }
   }
 
-  void print()
+  void swap(linklist *p1,linklist *p2,linklist**start)
+  {
+    linklist *temp1=retprev(p1,*start);
+    linklist *temp2=retprev(p2,*start);
+    linklist *temp3=NULL;
+    temp3=p1->next;
+    p1->next=p2->next;
+    p2->next=temp3;
+    if(p1!=*start && p2!=*start)
+    {
+    temp3=temp1->next;
+    temp1->next=temp2->next;
+    temp2->next=temp3;
+    }
+    else
+    {
+      temp2->next=p1;
+      *start=p2;
+      temp1=NULL;
+    }
+  }
+
+  linklist* minval(linklist *start)
+  {
+  }
+
+  void print(linklist **start)
   {
     if(start==NULL)
     {
@@ -97,17 +144,16 @@ class linklist
     }
     else
     {
-      linklist *curr=start;
+      linklist *curr=*start;
       while(curr->next!=NULL)
       {
-        cout<<curr->value<<endl;
+        cout<<curr->value<<"   ";
         curr=curr->next;
       }
       cout<<curr->value<<endl;
     }
   }
 
-  private:
   int value;
   linklist *next;
 };
