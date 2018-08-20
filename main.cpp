@@ -12,8 +12,8 @@ int main()
   a.insert(5,&start);
   a.insert(0,&start);
   a.print(&start); 
-  linklist *temp1= a.seacrh(4,start);
-  linklist *temp2=a.seacrh(0,start);
+  linklist *temp1= a.seacrh(0,start);
+  linklist *temp2=a.seacrh(4,start);
   cout<<"Swap"<<endl;
   a.swap(temp1,temp2,&start);
   a.print(&start);

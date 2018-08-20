@@ -112,9 +112,33 @@ class linklist
 
   void swap(linklist *p1,linklist *p2,linklist**start)
   {
+    if(p1==p2)
+    {
+    }
+    else
+    {
+       linklist *temp3=NULL;
+    if(p2->next==p1 || p2==*start)
+    {
+      temp3=p1;
+        p1=p2;
+        p2=temp3;
+    }
+     if(p1->next==p2 )
+    {
     linklist *temp1=retprev(p1,*start);
     linklist *temp2=retprev(p2,*start);
-    linklist *temp3=NULL;
+   
+      
+      temp3=p2->next;
+      p2->next=p1;
+      p1->next=temp3;
+      temp1->next=p2;
+    }
+    else
+    {
+      linklist *temp1=retprev(p1,*start);
+    linklist *temp2=retprev(p2,*start);
     temp3=p1->next;
     p1->next=p2->next;
     p2->next=temp3;
@@ -130,6 +154,10 @@ class linklist
       *start=p2;
       temp1=NULL;
     }
+    }
+    
+    }
+    
   }
 
   linklist* minval(linklist *start)
