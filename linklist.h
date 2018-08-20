@@ -134,6 +134,17 @@ class linklist
 
   linklist* minval(linklist *start)
   {
+    linklist *min=start;
+    while(start!=NULL)
+    {
+      if(min->value > start->value)
+      {
+        min=start;
+      }
+      start=start->next;
+    }
+
+      return min;
   }
 
   void print(linklist **start)
